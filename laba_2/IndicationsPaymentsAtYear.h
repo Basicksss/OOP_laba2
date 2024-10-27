@@ -8,22 +8,6 @@ using namespace std;
 
 class IndicationsPaymentsAtYear
 {
-private:
-	int* monthlyReadings;			/// <summary> Показания за каждый месяц(массив) </summary>
-	double* accruedPaymentsAtYear; 	/// <summary> Платежи за месяц(массив) </summary>
-
-
-	unsigned int accountingYear;	   ///<summary> Год учета </summary>
-	double totalAmount;				   ///<summary> Итоговая сумма платежа </summary> 
-	double rate;					   ///<summary> Тариф </summary>
-	double averageConsumptionPerMonth; ///<summary> Среднее потребление за месяц </summary> 
-	unsigned int monthNumber;		   ///<summary> Номер месяца </summary>
-	unsigned int readingAtMonth;	   ///<summary> Показание за месяц </summary> 
-
-	
-	static const unsigned int MONTH = 12;
-	static const int NOT_DEFINDE = 0;
-
 public:
 	//Конструктор
 	IndicationsPaymentsAtYear();
@@ -55,6 +39,22 @@ public:
 	/// Вывод данных
 	/// </summary>
 	void outputData();
+
+private:
+	int* monthlyReadings;			/// <summary> Показания за каждый месяц(массив) </summary>
+	double* accruedPaymentsAtYear; 	/// <summary> Платежи за месяц(массив) </summary>
+
+
+	unsigned int accountingYear;	   ///<summary> Год учета </summary>
+	double totalAmount;				   ///<summary> Итоговая сумма платежа </summary> 
+	double rate;					   ///<summary> Тариф </summary>
+	double averageConsumptionPerMonth; ///<summary> Среднее потребление за месяц </summary> 
+	unsigned int monthNumber;		   ///<summary> Номер месяца </summary>
+	unsigned int readingAtMonth;	   ///<summary> Показание за месяц </summary> 
+
+
+	static const unsigned int MONTH = 12;
+	static const int NOT_DEFINDE = 0;
 
 };
 
