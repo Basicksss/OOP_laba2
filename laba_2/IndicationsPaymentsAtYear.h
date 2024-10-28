@@ -39,6 +39,8 @@ public:
 	/// </summary>
 	void outputData() const;
 
+	void outputData(const unsigned int& monthNumber);
+
 
 private:
 	int* monthlyReadings;			/// <summary> Показания за каждый месяц(массив) </summary>
