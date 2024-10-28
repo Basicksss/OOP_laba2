@@ -1,11 +1,15 @@
 #include "IndicationsPaymentsAtYear.h"
 
-IndicationsPaymentsAtYear::IndicationsPaymentsAtYear():rate(5.36)
+IndicationsPaymentsAtYear::IndicationsPaymentsAtYear(const double& rate) // TODO exception sdelano
 {
+	if (rate <= 0)
+	{
+		throw exception(("Тариф не может быть меньше 1"));
+	}
 	monthlyReadings = new int[MONTH];
 	accruedPaymentsAtYear = new double[MONTH];
 
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < MONTH; i++)
 	{
 		monthlyReadings[i] = NOT_DEFINDE;
 		accruedPaymentsAtYear[i] = NOT_DEFINDE;
@@ -18,45 +22,51 @@ IndicationsPaymentsAtYear::~IndicationsPaymentsAtYear()
 	delete[] accruedPaymentsAtYear;
 }
 
-double IndicationsPaymentsAtYear::GetTarif() const
+double IndicationsPaymentsAtYear::getTarif() const
 {
 	return rate;
 }
 
-inline int IndicationsPaymentsAtYear::getYear() const
+ int IndicationsPaymentsAtYear::getYear() const
 {
 	return accountingYear;
 }
 
-void IndicationsPaymentsAtYear::inputData(const double& rate, const unsigned int& monthNumber, const unsigned int& accountingYear, const unsigned int& readingAtMonth)
+ double IndicationsPaymentsAtYear::getTotalAmount() const
 {
-	totalAmount = 0;
-	if (accountingYear > 2024 || accountingYear < 1980)
+	return totalAmount;
+}
+
+double IndicationsPaymentsAtYear::getAverage() const
+{
+	return averageConsumptionPerMonth;
+}
+
+void IndicationsPaymentsAtYear::inputData(const unsigned int& monthNumber, const unsigned int& accountingYear, const unsigned int& readingAtMonth)
+{
+	tm currentDate = getCurrentDayTime();
+	if (accountingYear > currentDate.tm_year || accountingYear < 1980) //TODO год sdelano 
 	{
 		throw exception((string("Введен неверный год")
 			+ "! Пришло: "
 			+ to_string(accountingYear)).c_str());
 	}
-	else
-	{
-		this->accountingYear = accountingYear;
-	}
 
-	if (readingAtMonth > 10000 || readingAtMonth < 0)
+	if (readingAtMonth > MAX_READINGS || readingAtMonth < 0)
 	{
 		throw exception((string("Введен неверный показатель счетчика")
 			+ "! Пришло: "
 			+ to_string(readingAtMonth)).c_str());
 	}
 
-	if (monthNumber > 13 || monthNumber < 1)
+	if (monthNumber >= MONTH || monthNumber < 1)
 	{
 		throw exception((string("Введен неверный номер месяца")
 			+ "! Пришло: "
 			+ to_string(monthNumber)).c_str());
 	}
 
-	if (accruedPaymentsAtYear[monthNumber - 1] > 10000 || accruedPaymentsAtYear[monthNumber - 1] < -1)
+	if (accruedPaymentsAtYear[monthNumber - 1] > MAX_READINGS || accruedPaymentsAtYear[monthNumber - 1] < -1)// TODO const sdelano
 	{
 		throw exception((string("Неверный счет за электроэнергию")
 			+ "! Пришло: "
@@ -69,60 +79,69 @@ void IndicationsPaymentsAtYear::inputData(const double& rate, const unsigned int
 			+ "! Пришло: "
 			+ to_string(rate)).c_str());
 	}
-	else
-	{
-		this->rate = rate;
-
-	}
-
+	
+	this->rate = rate;
+	this->accountingYear = accountingYear;
+	
+	
 	monthlyReadings[monthNumber - 1] = readingAtMonth;
 	accruedPaymentsAtYear[monthNumber - 1] = readingAtMonth * rate;
-}
-
-double IndicationsPaymentsAtYear::getAverage()
-{
+	
+	
 	int count = 0;
+	totalAmount = 0;
+	averageConsumptionPerMonth = 0;
 	for (int i = 0; i < MONTH; i++)
 	{
-		if (monthlyReadings[i] > 0)
+		if (monthlyReadings[i] == NOT_DEFINDE)
 		{
 			averageConsumptionPerMonth += monthlyReadings[i];
 			count++;
 		}
 	}
-
-	if (count == 0) throw exception((string("Отсутствуют показания по месяцам.")
-		+ " Заполненно месяцев: "
-		+ to_string(count)).c_str());
-	return averageConsumptionPerMonth / count;
+	if (count != 0)
+	{
+		averageConsumptionPerMonth /= count;
+	}
+	for (int i = 0; i < MONTH; i++)
+	{
+		totalAmount += accruedPaymentsAtYear[i];
+	}
+	
+	//TODO getAverage,output -> suda sdelano
 }
 
 
-void IndicationsPaymentsAtYear::outputData()
+void IndicationsPaymentsAtYear::outputData() const
 {
 	cout << "Год учета: " << accountingYear;
 	cout << "\nТариф: " << rate;
 	for (int i = 0; i < MONTH; i++)
 	{
-		if (monthlyReadings[i] != -1 && accruedPaymentsAtYear[i] != -1)
+		if (monthlyReadings[i] != NOT_DEFINDE && accruedPaymentsAtYear[i] != NOT_DEFINDE)// TODO константа sdelano
 		{
 			cout << "\nМесяц:" << i + 1;
 			cout << "\nПоказания:" << monthlyReadings[i];
 			cout << "\nПлатеж:" << accruedPaymentsAtYear[i] << " руб.";
-			totalAmount += accruedPaymentsAtYear[i];
-			monthlyReadings[i] = 0;
-			accruedPaymentsAtYear[i] = 0;
+
 		}
 	}
 	cout << "\nИтоговая сумма:" << totalAmount << " руб.";
-	try
-	{
-		cout << "Среднее потребление:" << getAverage() << " кВтч.\n";
-	}
-	catch (const std::exception& e)
-	{
-		cout << e.what() << "\n";
-	}
+	cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
+}
 
+// получение текущей даты-времени
+
+ tm IndicationsPaymentsAtYear::getCurrentDayTime() {
+	// хотим текущую дату время получить
+	tm currentDayTime;
+	// через chrono получаем текущее время-дату
+	std::chrono::system_clock::time_point nowDateTime = std::chrono
+		::system_clock::now();
+	time_t intermediateDayTime = std::chrono
+		::system_clock::to_time_t(nowDateTime);
+	// рассчитываем время по текущему часовому поясу
+	localtime_s(&currentDayTime, &intermediateDayTime);
+	return currentDayTime;
 }
 

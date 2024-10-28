@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="IndicationsPaymentsAtYear.cpp" />
-    <ClCompile Include="laba_2.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IndicationsPaymentsAtYear.h" />

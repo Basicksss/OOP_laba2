@@ -2,6 +2,11 @@
 
 #include <iostream>
 #include <string>
+#include <time.h>
+#include <sstream>
+#include <iomanip>
+#include <chrono>
+
 
 
 using namespace std;
@@ -10,15 +15,16 @@ class IndicationsPaymentsAtYear
 {
 public:
 	//Конструктор
-	IndicationsPaymentsAtYear();
+	IndicationsPaymentsAtYear(const double& rate);
 
 	//Деструктор
 	~IndicationsPaymentsAtYear();
 
 	//Селектор
-	double GetTarif() const;
+	double getTarif() const;
 	int getYear() const;
-
+	double getTotalAmount() const;
+	double getAverage() const;
 
 	/// <summary>
 	/// Ввод данных
@@ -26,35 +32,32 @@ public:
 	/// <param name="rate"></param>
 	/// <param name="monthNumber"></param>
 	/// <param name="accountingYear"></param>
-	void inputData(const double& rate, const unsigned int& monthNumber, const unsigned int& accountingYear, const unsigned int& readingAtMonth);
-
-	/// <summary>
-	/// Получение среднего показателя
-	/// </summary>
-	/// <returns></returns>
-	double getAverage();
-
+	void inputData(const unsigned int& monthNumber, const unsigned int& accountingYear, const unsigned int& readingAtMonth);
 
 	/// <summary>
 	/// Вывод данных
 	/// </summary>
-	void outputData();
+	void outputData() const;
+
 
 private:
 	int* monthlyReadings;			/// <summary> Показания за каждый месяц(массив) </summary>
 	double* accruedPaymentsAtYear; 	/// <summary> Платежи за месяц(массив) </summary>
 
 
-	unsigned int accountingYear;	   ///<summary> Год учета </summary>
-	double totalAmount;				   ///<summary> Итоговая сумма платежа </summary> 
+	unsigned int accountingYear = 0;	   ///<summary> Год учета </summary>
+	double totalAmount = 0;				   ///<summary> Итоговая сумма платежа </summary> 
 	double rate;					   ///<summary> Тариф </summary>
-	double averageConsumptionPerMonth; ///<summary> Среднее потребление за месяц </summary> 
-	unsigned int monthNumber;		   ///<summary> Номер месяца </summary>
-	unsigned int readingAtMonth;	   ///<summary> Показание за месяц </summary> 
+	double averageConsumptionPerMonth = 0; ///<summary> Среднее потребление за месяц </summary> 
+	unsigned int monthNumber = 0;		   ///<summary> Номер месяца </summary>
+	unsigned int readingAtMonth = 0;	   ///<summary> Показание за месяц </summary> 
 
 
 	static const unsigned int MONTH = 12;
-	static const int NOT_DEFINDE = 0;
+	static const int NOT_DEFINDE = -1;
+	static const unsigned int MAX_READINGS = 10000;
 
+	// получение текущей даты-времени
+	tm getCurrentDayTime();
 };
 

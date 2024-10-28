@@ -15,7 +15,7 @@ int main()
     bool retry = true;
     bool choice = true;
 
-    IndicationsPaymentsAtYear payments;
+    IndicationsPaymentsAtYear payments (12);
     cout << "Здравствуйте, вас приветствует программа по планированию уплаты счетов по электроэнергии!\n";
     while (retry)
     {
@@ -30,7 +30,7 @@ int main()
             cin >> monthNumber;
             cout << "Введите показания счетчика: ";
             cin >> readingAtMonth;
-            payments.inputData(rate,monthNumber,year,readingAtMonth);
+            payments.inputData(monthNumber,year,readingAtMonth);
 
             char yesNo;
             cout << "Хотите добавить еще один месяц? Y (yes), N (No) : ";
