@@ -130,7 +130,7 @@ void IndicationsPaymentsAtYear::outputData() const
 	cout << "—реднее потребление:" << (averageConsumptionPerMonth) << " к¬тч.\n";
 }
 
-inline void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber) const
+void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber) const
 {
 	if (monthNumber <= NOT_DEFINDE)
 	{
