@@ -39,8 +39,32 @@ public:
 	/// </summary>
 	void outputData() const;
 
-	void outputData(const unsigned int& monthNumber);
+	void outputData(const unsigned int& monthNumber) const;
 
+	double operator [] (const unsigned int& monthNumber) const {
+		if (accruedPaymentsAtYear[monthNumber - 1] != NOT_DEFINDE)
+		{
+			return accruedPaymentsAtYear[monthNumber - 1];
+		}
+	};
+
+	friend ostream& operator << (ostream& out, IndicationsPaymentsAtYear& ourObject)
+	{
+		int payments = 0;
+		out << "Год учета: " << ourObject.accountingYear;
+		out << "\nТариф: " << ourObject.rate;
+		for (int i = 0; i < MONTH; i++)
+		{
+			if (ourObject.monthlyReadings[i] != NOT_DEFINDE && ourObject.accruedPaymentsAtYear[i] != NOT_DEFINDE)
+			{
+				payments =+ ourObject.accruedPaymentsAtYear[i];
+			}
+		}
+		out << "\nИтоговая сумма:" << ourObject.totalAmount << " руб.";
+		out << "Среднее потребление:" << (ourObject.averageConsumptionPerMonth) << " кВтч.\n";
+
+		return out;
+	}
 
 private:
 	int* monthlyReadings;			/// <summary> Показания за каждый месяц(массив) </summary>
@@ -62,4 +86,10 @@ private:
 	// получение текущей даты-времени
 	tm getCurrentDayTime();
 };
+
+double& operator += (double& sum, IndicationsPaymentsAtYear& ourObject)
+{
+	sum += ourObject.getAverage();
+	return sum;
+}
 

@@ -130,7 +130,7 @@ void IndicationsPaymentsAtYear::outputData() const
 	cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
 }
 
-void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber)
+inline void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber) const
 {
 	if (monthNumber <= NOT_DEFINDE)
 	{
@@ -153,28 +153,28 @@ void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber)
 		cout << "\nИтоговая сумма:" << totalAmount << " руб.";
 		cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
 	}
-	else if(monthNumber > 12)
+	else if (monthNumber > MONTH)
 	{
 		throw exception("Ты где новые месяца нашел блинб ну ты ваще угарный чел!");
 	}
+	/*else
+	{
+	cout << "Год учета: " << accountingYear;
+	cout << "\nТариф: " << rate;
+
+	if (monthlyReadings[monthNumber - 1] != NOT_DEFINDE && accruedPaymentsAtYear[monthNumber - 1] != NOT_DEFINDE)
+	{
+	cout << "\nМесяц:" << monthNumber;
+	cout << "\nПоказания:" << monthlyReadings[monthNumber - 1];
+	cout << "\nПлатеж:" << accruedPaymentsAtYear[monthNumber - 1] << " руб.";
+	}
 	else
 	{
-		cout << "Год учета: " << accountingYear;
-		cout << "\nТариф: " << rate;
-
-		if (monthlyReadings[monthNumber - 1] != NOT_DEFINDE && accruedPaymentsAtYear[monthNumber - 1] != NOT_DEFINDE)
-		{
-			cout << "\nМесяц:" << monthNumber;
-			cout << "\nПоказания:" << monthlyReadings[monthNumber - 1];
-			cout << "\nПлатеж:" << accruedPaymentsAtYear[monthNumber - 1] << " руб.";
-		}
-		else
-		{
-			throw exception("Нет данных!");
-		}
-		cout << "\nИтоговая сумма:" << totalAmount << " руб.";
-		cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
+	throw exception("Нет данных!");
 	}
+	cout << "\nИтоговая сумма:" << totalAmount << " руб.";
+	cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
+	}*/
 }
 
 // получение текущей даты-времени
