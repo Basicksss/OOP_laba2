@@ -1,6 +1,6 @@
 #include "IndicationsPaymentsAtYear.h"
 
-IndicationsPaymentsAtYear::IndicationsPaymentsAtYear(const double& rate) // TODO exception sdelano
+IndicationsPaymentsAtYear::IndicationsPaymentsAtYear(const double& rate)
 {
 	if (rate <= 0)
 	{
@@ -130,7 +130,7 @@ void IndicationsPaymentsAtYear::outputData() const
 	cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
 }
 
-void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber) const
+void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber ) const
 {
 	if (monthNumber <= NOT_DEFINDE)
 	{
@@ -157,24 +157,6 @@ void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber) cons
 	{
 		throw exception("Ты где новые месяца нашел блинб ну ты ваще угарный чел!");
 	}
-	/*else
-	{
-	cout << "Год учета: " << accountingYear;
-	cout << "\nТариф: " << rate;
-
-	if (monthlyReadings[monthNumber - 1] != NOT_DEFINDE && accruedPaymentsAtYear[monthNumber - 1] != NOT_DEFINDE)
-	{
-	cout << "\nМесяц:" << monthNumber;
-	cout << "\nПоказания:" << monthlyReadings[monthNumber - 1];
-	cout << "\nПлатеж:" << accruedPaymentsAtYear[monthNumber - 1] << " руб.";
-	}
-	else
-	{
-	throw exception("Нет данных!");
-	}
-	cout << "\nИтоговая сумма:" << totalAmount << " руб.";
-	cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
-	}*/
 }
 
 // получение текущей даты-времени
@@ -192,3 +174,34 @@ void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber) cons
 	return currentDayTime;
 }
 
+ double IndicationsPaymentsAtYear::operator [] (const unsigned int& monthNumber) const {
+	 if (accruedPaymentsAtYear[monthNumber - 1] != NOT_DEFINDE)
+	 {
+		 return accruedPaymentsAtYear[monthNumber - 1];
+	 }
+	 return 0;
+ };
+
+ ostream& operator<<(ostream& out, const IndicationsPaymentsAtYear& ourObject)
+ {
+	 double payments = 0;
+	 out << "Год учета: " << ourObject.accountingYear;
+	 out << "\nТариф: " << ourObject.rate;
+	 for (int i = 0; i < ourObject.MONTH; i++)
+	 {
+		 if (ourObject.monthlyReadings[i] != ourObject.NOT_DEFINDE && ourObject.accruedPaymentsAtYear[i] != ourObject.NOT_DEFINDE)
+		 {
+			 payments += ourObject.accruedPaymentsAtYear[i] ;
+		 }
+	 }
+	 out << "\nИтоговая сумма:" << ourObject.totalAmount << " руб.";
+	 out << "Среднее потребление:" << (ourObject.averageConsumptionPerMonth) << " кВтч.\n";
+
+	 return out;
+ }
+
+ double& operator += (double& sum, const IndicationsPaymentsAtYear& ourObject)
+ {
+	 sum += ourObject.getAverage();
+	 return sum;
+ }
