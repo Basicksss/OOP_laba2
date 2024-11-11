@@ -74,7 +74,7 @@ int main()
     char yesNo2;
     cout << "Хотите добавить еще один год? Y (yes), N (No) : ";
     cin >> yesNo2;
-    if (yesNo2 == 'Y' && yesNo2 == 'y')
+    if (yesNo2 == 'Y' || yesNo2 == 'y')
     {
         cout << "Введите год учета счета: ";
         cin >> year;
