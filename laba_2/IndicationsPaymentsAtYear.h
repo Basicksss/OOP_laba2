@@ -68,3 +68,4 @@ private:
 
 double& operator += (double& sum, const IndicationsPaymentsAtYear& ourObject);
 
+

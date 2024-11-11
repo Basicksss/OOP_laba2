@@ -45,7 +45,7 @@ double IndicationsPaymentsAtYear::getAverage() const
 void IndicationsPaymentsAtYear::inputData(const unsigned int& monthNumber, const unsigned int& accountingYear, const unsigned int& readingAtMonth)
 {
 	tm currentDate = getCurrentDayTime();
-	if (accountingYear > currentDate.tm_year || accountingYear < 1980)
+	if (accountingYear > currentDate.tm_year+1900 || accountingYear < 1980)
 	{
 		throw exception((string("Введен неверный год")
 			+ "! Пришло: "
@@ -156,6 +156,24 @@ void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber ) con
 	else if (monthNumber > MONTH)
 	{
 		throw exception("Ты где новые месяца нашел блинб ну ты ваще угарный чел!");
+	}
+	else
+	{
+	cout << "Год учета: " << accountingYear;
+	cout << "\nТариф: " << rate;
+
+	if (monthlyReadings[monthNumber - 1] != NOT_DEFINDE && accruedPaymentsAtYear[monthNumber - 1] != NOT_DEFINDE)
+	{
+	cout << "\nМесяц:" << monthNumber;
+	cout << "\nПоказания:" << monthlyReadings[monthNumber - 1];
+	cout << "\nПлатеж:" << accruedPaymentsAtYear[monthNumber - 1] << " руб.";
+	}
+	else
+	{
+	throw exception("Нет данных!");
+	}
+	cout << "\nИтоговая сумма:" << totalAmount << " руб.";
+	cout << "Среднее потребление:" << (averageConsumptionPerMonth) << " кВтч.\n";
 	}
 }
 
