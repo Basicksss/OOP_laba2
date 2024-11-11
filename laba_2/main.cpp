@@ -124,7 +124,7 @@ int main()
             cout << payments2;
         }
 
-        cout << "Если хотите посмотреть сумму средних значений за все года, введите Z";
+        /*cout << "Если хотите посмотреть сумму средних значений за все года, введите Z";
         char symbolAverage;
         cin >> symbolAverage;
         if (symbolAverage == 'Z' || symbolAverage == 'z')
@@ -133,7 +133,7 @@ int main()
             totalAverage += payments2;
 
             cout << "Общая сумма средних показаний: " << totalAverage;
-        }
+        }*/
     }
     return 0;
 }

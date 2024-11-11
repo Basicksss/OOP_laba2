@@ -87,9 +87,9 @@ private:
 	tm getCurrentDayTime();
 };
 
-double& operator += (double& sum, IndicationsPaymentsAtYear& ourObject)
-{
-	sum += ourObject.getAverage();
-	return sum;
-}
+//double& operator += (double& sum, IndicationsPaymentsAtYear& ourObject)
+//{
+//	sum += ourObject.getAverage();
+//	return sum;
+//}
 

@@ -44,13 +44,13 @@ double IndicationsPaymentsAtYear::getAverage() const
 
 void IndicationsPaymentsAtYear::inputData(const unsigned int& monthNumber, const unsigned int& accountingYear, const unsigned int& readingAtMonth)
 {
-	tm currentDate = getCurrentDayTime();
+	/*tm currentDate = getCurrentDayTime();
 	if (accountingYear > currentDate.tm_year || accountingYear < 1980)
 	{
 		throw exception((string("Введен неверный год")
 			+ "! Пришло: "
 			+ to_string(accountingYear)).c_str());
-	}
+	}*/
 
 	if (readingAtMonth > MAX_READINGS || readingAtMonth < 0)
 	{
