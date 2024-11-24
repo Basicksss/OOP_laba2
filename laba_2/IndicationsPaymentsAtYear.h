@@ -14,6 +14,14 @@ using namespace std;
 class IndicationsPaymentsAtYear
 {
 public:
+	
+	double* accruedPaymentsAtYear; 	       /// <summary> Платежи за месяц(массив) </summary>
+
+	static const unsigned int MONTH = 12;
+	static const int NOT_DEFINDE = -1;
+	unsigned int monthNumber = 0;		   ///<summary> Номер месяца </summary>
+
+
 	//Конструктор
 	IndicationsPaymentsAtYear(const double& rate);
 
@@ -47,19 +55,15 @@ public:
 
 private:
 	int* monthlyReadings;			       /// <summary> Показания за каждый месяц(массив) </summary>
-	double* accruedPaymentsAtYear; 	       /// <summary> Платежи за месяц(массив) </summary>
 
 
 	unsigned int accountingYear = 0;	   ///<summary> Год учета </summary>
 	double totalAmount = 0;				   ///<summary> Итоговая сумма платежа </summary> 
 	double rate;					       ///<summary> Тариф </summary>
 	double averageConsumptionPerMonth = 0; ///<summary> Среднее потребление за месяц </summary> 
-	unsigned int monthNumber = 0;		   ///<summary> Номер месяца </summary>
 	unsigned int readingAtMonth = 0;	   ///<summary> Показание за месяц </summary> 
 
 
-	static const unsigned int MONTH = 12;
-	static const int NOT_DEFINDE = -1;
 	static const unsigned int MAX_READINGS = 10000;
 
 	// получение текущей даты-времени
@@ -67,5 +71,4 @@ private:
 };
 
 double& operator += (double& sum, const IndicationsPaymentsAtYear& ourObject);
-
 

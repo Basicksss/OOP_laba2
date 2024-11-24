@@ -50,7 +50,7 @@ void IndicationsPaymentsAtYear::inputData(const unsigned int& monthNumber, const
 		throw exception((string("Введен неверный год")
 			+ "! Пришло: "
 			+ to_string(accountingYear)).c_str());
-	}*/
+	}
 
 	if (readingAtMonth > MAX_READINGS || readingAtMonth < 0)
 	{
@@ -223,3 +223,5 @@ void IndicationsPaymentsAtYear::outputData(const unsigned int& monthNumber ) con
 	 sum += ourObject.getAverage();
 	 return sum;
  }
+
+

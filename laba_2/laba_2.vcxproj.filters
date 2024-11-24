@@ -21,9 +21,15 @@
     <ClCompile Include="IndicationsPaymentsAtYear.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="IndicationsPaymentsWithPenalty.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IndicationsPaymentsAtYear.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="IndicationsPaymentsWithPenalty.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

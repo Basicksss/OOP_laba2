@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include "IndicationsPaymentsAtYear.h"
+#include "IndicationsPaymentsWithPenalty.h"
+
 
 using namespace std;
 
@@ -14,11 +16,12 @@ int main()
     char symbolMonth;
     int monthInt;
     double totalAverage = 0;
+    double penalties = 0;
 
     bool retry = true;
     bool choice = true;
 
-    IndicationsPaymentsAtYear payments(12);
+    IndicationsPaymentsWithPenalty payments(12);
     IndicationsPaymentsAtYear payments2(5);
     
     
@@ -37,6 +40,16 @@ int main()
         cin >> readingAtMonth;
         payments.inputData(monthNumber, year, readingAtMonth);
 
+        cout << "Если хотите добавить пени, введите 1, если нет, то 2";
+        int penaltiesChoose;
+        cin >> penaltiesChoose;
+        if (penaltiesChoose == 1)
+        {
+            cout << "Введите пени: ";
+            cin >> penalties;
+            payments.inputPenality(monthNumber, penalties);
+        }
+
         char yesNo;
         cout << "Хотите добавить еще один месяц? Y (yes), N (No) : ";
         cin >> yesNo;
@@ -48,14 +61,14 @@ int main()
 
     }
 
-    cout << "Если хотите посмотреть информацию за определенный месяц, введите P.";
-    cout << "Если хотите посмотреть информацию за весь год, введите A";
-    cout << "Если хотите посмотреть только сводную информацию за весь год, введите S";
+    cout << "Если хотите посмотреть информацию за определенный месяц, введите P.\n";
+    cout << "Если хотите посмотреть информацию за весь год, введите A\n";
+    cout << "Если хотите посмотреть только сводную информацию за весь год, введите S\n";
 
     cin >> symbolMonth;
     if (symbolMonth == 'A' || symbolMonth == 'a')
     {
-        payments.outputData();
+        payments.displayInfo();
     }
     else if (symbolMonth == 'P' || symbolMonth == 'p')
     {
@@ -100,10 +113,10 @@ int main()
 
         }
 
-        cout << "Если хотите посмотреть информацию за определенный месяц, введите P.";
-        cout << "Если хотите посмотреть информацию за весь год, введите A";
-        cout << "Если хотите посмотреть только сводную информацию за весь год, введите S";
-
+        cout << "Если хотите посмотреть информацию за определенный месяц, введите P.\n";
+        cout << "Если хотите посмотреть информацию за весь год, введите A\n";
+        cout << "Если хотите посмотреть только сводную информацию за весь год, введите S\n";
+        cout << "Если хотите посмотреть сумму средних значений за все года, введите Z\n";
         cin >> symbolMonth;
         if (symbolMonth == 'A' || symbolMonth == 'a')
         {
@@ -123,8 +136,6 @@ int main()
         {
             cout << payments2;
         }
-
-        /*cout << "Если хотите посмотреть сумму средних значений за все года, введите Z";
         char symbolAverage;
         cin >> symbolAverage;
         if (symbolAverage == 'Z' || symbolAverage == 'z')
@@ -133,7 +144,7 @@ int main()
             totalAverage += payments2;
 
             cout << "Общая сумма средних показаний: " << totalAverage;
-        }*/
+        }
     }
     return 0;
 }
