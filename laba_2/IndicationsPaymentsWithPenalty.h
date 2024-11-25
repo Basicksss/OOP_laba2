@@ -9,9 +9,10 @@ public:
 
 	~IndicationsPaymentsWithPenalty();
 
+
 	void inputPenality(const unsigned int& monthNumber, const double& penalty);
 
-	void displayInfo() const;
+	void outputData() const;
 
 
 private:

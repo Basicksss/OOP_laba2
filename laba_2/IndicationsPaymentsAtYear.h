@@ -15,11 +15,7 @@ class IndicationsPaymentsAtYear
 {
 public:
 	
-	double* accruedPaymentsAtYear; 	       /// <summary> ѕлатежи за мес€ц(массив) </summary>
 
-	static const unsigned int MONTH = 12;
-	static const int NOT_DEFINDE = -1;
-	unsigned int monthNumber = 0;		   ///<summary> Ќомер мес€ца </summary>
 
 
 	// онструктор
@@ -53,6 +49,13 @@ public:
 
 	friend ostream& operator << (ostream& out, const IndicationsPaymentsAtYear& ourObject);
 
+
+protected:
+	double* accruedPaymentsAtYear; 	       /// <summary> ѕлатежи за мес€ц(массив) </summary>
+
+	static const unsigned int MONTH = 12;
+	static const int NOT_DEFINDE = -1;
+	unsigned int monthNumber = 0;		   ///<summary> Ќомер мес€ца </summary>
 private:
 	int* monthlyReadings;			       /// <summary> ѕоказани€ за каждый мес€ц(массив) </summary>
 

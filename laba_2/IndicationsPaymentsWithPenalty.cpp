@@ -34,7 +34,7 @@ void IndicationsPaymentsWithPenalty::inputPenality(const unsigned int& monthNumb
 	accruedPaymentsAtYear[monthNumber - 1] = newPayment;
 }
 
-void IndicationsPaymentsWithPenalty::displayInfo() const {
+void IndicationsPaymentsWithPenalty::outputData() const {
 	IndicationsPaymentsAtYear::outputData();
 
 	for (int i = 0; i < MONTH; i++) {

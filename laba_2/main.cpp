@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include "IndicationsPaymentsAtYear.h"
 #include "IndicationsPaymentsWithPenalty.h"
 
 
@@ -68,7 +67,7 @@ int main()
     cin >> symbolMonth;
     if (symbolMonth == 'A' || symbolMonth == 'a')
     {
-        payments.displayInfo();
+        payments.outputData();
     }
     else if (symbolMonth == 'P' || symbolMonth == 'p')
     {
