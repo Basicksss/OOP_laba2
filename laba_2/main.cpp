@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "IndicationsPaymentsWithPenalty.h"
+#include "IndicationsPaymentsAt.h"
 
 
 using namespace std;
@@ -20,8 +21,10 @@ int main()
     bool retry = true;
     bool choice = true;
 
-    IndicationsPaymentsWithPenalty payments(12);
-    IndicationsPaymentsAtYear payments2(5);
+    const int NUM_YEARS = 2;
+    IndicationsPaymentsAt* payments[NUM_YEARS];
+    //IndicationsPaymentsWithPenalty payments(12);
+    //IndicationsPaymentsAtYear payments2(5);
     
     
     cout << "Здравствуйте, вас приветствует программа по планированию уплаты счетов по электроэнергии!\n";
@@ -37,7 +40,7 @@ int main()
         cin >> monthNumber;
         cout << "Введите показания счетчика: ";
         cin >> readingAtMonth;
-        payments.inputData(monthNumber, year, readingAtMonth);
+        payments[0]->inputData(monthNumber, year, readingAtMonth);
 
         cout << "Если хотите добавить пени, введите 1, если нет, то 2";
         int penaltiesChoose;
@@ -46,7 +49,7 @@ int main()
         {
             cout << "Введите пени: ";
             cin >> penalties;
-            payments.inputPenality(monthNumber, penalties);
+            payments[0]->inputPenality(monthNumber, penalties);
         }
 
         char yesNo;
@@ -67,7 +70,7 @@ int main()
     cin >> symbolMonth;
     if (symbolMonth == 'A' || symbolMonth == 'a')
     {
-        payments.outputData();
+        payments[0]->outputData();
     }
     else if (symbolMonth == 'P' || symbolMonth == 'p')
     {
@@ -99,7 +102,7 @@ int main()
             cin >> monthNumber;
             cout << "Введите показания счетчика: ";
             cin >> readingAtMonth;
-            payments2.inputData(monthNumber, year, readingAtMonth);
+            payments[1]->inputData(monthNumber, year, readingAtMonth);
 
             char yesNo;
             cout << "Хотите добавить еще один месяц? Y (yes), N (No) : ";
@@ -119,7 +122,7 @@ int main()
         cin >> symbolMonth;
         if (symbolMonth == 'A' || symbolMonth == 'a')
         {
-            payments2.outputData();
+            payments[1]->outputData();
         }
         else if (symbolMonth == 'P' || symbolMonth == 'p')
         {
@@ -127,23 +130,23 @@ int main()
             cin >> monthInt;
             if (monthInt >= 1 && monthInt <= 12)
             {
-                payments2[monthInt];
+                payments[1][monthInt];
 
             }
         }
         else if (symbolMonth == 'S' || symbolMonth == 's')
         {
-            cout << payments2;
+            cout << payments[1];
         }
-        char symbolAverage;
+        /*char symbolAverage;
         cin >> symbolAverage;
         if (symbolAverage == 'Z' || symbolAverage == 'z')
         {
-            totalAverage += payments;
-            totalAverage += payments2;
+            totalAverage += payments[0];
+            totalAverage += payments[1];
 
             cout << "Общая сумма средних показаний: " << totalAverage;
-        }
+        }*/
     }
     return 0;
 }

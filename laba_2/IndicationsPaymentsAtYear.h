@@ -6,18 +6,16 @@
 #include <sstream>
 #include <iomanip>
 #include <chrono>
+#include "IndicationsPaymentsAt.h"
+
 
 
 
 using namespace std;
 
-class IndicationsPaymentsAtYear
+class IndicationsPaymentsAtYear : public IndicationsPaymentsAt
 {
 public:
-	
-
-
-
 	//Конструктор
 	IndicationsPaymentsAtYear(const double& rate);
 
