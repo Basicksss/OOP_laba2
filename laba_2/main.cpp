@@ -1,6 +1,7 @@
 ﻿#include <iostream>
-#include "IndicationsPaymentsWithPenalty.h"
 #include "IndicationsPaymentsAt.h"
+#include "IndicationsPaymentsAtYear.h"
+#include "IndicationsPaymentsWithPenalty.h"
 
 
 using namespace std;
@@ -23,6 +24,8 @@ int main()
 
     const int NUM_YEARS = 2;
     IndicationsPaymentsAt* payments[NUM_YEARS];
+    payments[0] = new IndicationsPaymentsWithPenalty(2.22);
+    payments[1] = new IndicationsPaymentsWithPenalty(5.22);
     //IndicationsPaymentsWithPenalty payments(12);
     //IndicationsPaymentsAtYear payments2(5);
     
@@ -138,15 +141,15 @@ int main()
         {
             cout << payments[1];
         }
-        /*char symbolAverage;
+        char symbolAverage;
         cin >> symbolAverage;
         if (symbolAverage == 'Z' || symbolAverage == 'z')
         {
-            totalAverage += payments[0];
-            totalAverage += payments[1];
+            totalAverage += *payments[0];
+            totalAverage += *payments[1];
 
             cout << "Общая сумма средних показаний: " << totalAverage;
-        }*/
+        }
     }
     return 0;
 }

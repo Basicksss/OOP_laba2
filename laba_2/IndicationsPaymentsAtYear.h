@@ -26,7 +26,7 @@ public:
 	double getTarif() const;
 	int getYear() const;
 	double getTotalAmount() const;
-	double getAverage() const;
+	double getAverage() const override ;
 
 	/// <summary>
 	/// Ввод данных
@@ -39,9 +39,9 @@ public:
 	/// <summary>
 	/// Вывод данных
 	/// </summary>
-	void outputData() const;
+	void outputData() const override;
 
-	void outputData(const unsigned int& monthNumber) const;
+	void outputData(const unsigned int& monthNumber) const ;
 
 	double operator [] (const unsigned int& monthNumber) const;
 
