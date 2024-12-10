@@ -1,7 +1,9 @@
 #pragma once
 #include "IndicationsPaymentsAtYear.h"
+
+template <typename T>
 class IndicationsPaymentsWithPenalty :
-    public IndicationsPaymentsAtYear
+    public IndicationsPaymentsAtYear<T>
 {
 public:
 

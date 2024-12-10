@@ -23,9 +23,9 @@ int main()
     bool choice = true;
 
     const int NUM_YEARS = 2;
-    IndicationsPaymentsAt* payments[NUM_YEARS];
-    payments[0] = new IndicationsPaymentsWithPenalty(2.22);
-    payments[1] = new IndicationsPaymentsWithPenalty(5.22);
+    IndicationsPaymentsAt<int>* payments[NUM_YEARS];
+    payments[0] = new IndicationsPaymentsWithPenalty<int>(2.22);
+    payments[1] = new IndicationsPaymentsWithPenalty<int>(5.22);
     //IndicationsPaymentsWithPenalty payments(12);
     //IndicationsPaymentsAtYear payments2(5);
     
