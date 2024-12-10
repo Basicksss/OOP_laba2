@@ -28,6 +28,7 @@ public:
 	T getYear() const;
 	T getTotalAmount() const;
 	T getAverage() const override ;
+	void setStartMonth() const;
 
 	/// <summary>
 	/// Ввод данных
@@ -65,6 +66,7 @@ private:
 	T averageConsumptionPerMonth = 0;	   ///<summary> Среднее потребление за месяц </summary> 
 	T readingAtMonth = 0;				   ///<summary> Показание за месяц </summary> 
 
+	unsigned int startMonth;
 
 	static const unsigned int MAX_READINGS = 10000;
 
@@ -74,12 +76,17 @@ private:
 
 
 	template<typename T>
-	IndicationsPaymentsAtYear<T>::IndicationsPaymentsAtYear(const double& rate)
+	IndicationsPaymentsAtYear<T>::IndicationsPaymentsAtYear(const double& rate, const unsigned int& startMonth)
 	{
 		if (rate <= 0)
 		{
 			throw exception(("Тариф не может быть меньше 1"));
 		}
+		if (startMonth <= 1 || startMonth >= MONTH)
+		{
+			throw exception(("Начальный месяц не может быть меньше 1 или больше 12"));
+		}
+		setStartMonth(startMonth);
 		monthlyReadings = new int[MONTH];
 		accruedPaymentsAtYear = new double[MONTH];
 
@@ -163,9 +170,9 @@ private:
 		this->rate = rate;
 		this->accountingYear = accountingYear;
 
-
-		monthlyReadings[monthNumber - 1] = readingAtMonth;
-		accruedPaymentsAtYear[monthNumber - 1] = readingAtMonth * rate;
+		int adjustedMonth = (monthNumber - this->startMonth + 2) % 12; //Коррекция индекса месяца с учетом начального
+		monthlyReadings[adjustedMonth] = readingAtMonth;
+		accruedPaymentsAtYear[adjustedMonth] = readingAtMonth * rate;
 
 
 		int count = 0;
@@ -196,6 +203,7 @@ private:
 	{
 		cout << "Год учета: " << accountingYear;
 		cout << "\nТариф: " << rate;
+		cout << "\nНачальный месяц:" << startMonth;
 		for (int i = 0; i < MONTH; i++)
 		{
 			if (monthlyReadings[i] != NOT_DEFINDE && accruedPaymentsAtYear[i] != NOT_DEFINDE)
@@ -301,6 +309,11 @@ private:
 		out << "Среднее потребление:" << (ourObject.averageConsumptionPerMonth) << " кВтч.\n";
 
 		return out;
+	}
+
+	template<typename T>
+	void IndicationsPaymentsAtYear<T>::setStartMonth(int startMonth) {
+		this->startMonth = startMonth;
 	}
 };
 
