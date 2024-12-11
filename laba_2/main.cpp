@@ -10,6 +10,8 @@ int main()
 {
     setlocale(LC_ALL, "RUS");
 
+    typedef int type_my ;
+
     int year;
     double rate;
     int monthNumber;
@@ -17,15 +19,15 @@ int main()
     char symbolMonth;
     int monthInt;
     double totalAverage = 0;
-    double penalties = 0;
+    type_my penalties = 0;
 
     bool retry = true;
     bool choice = true;
 
     const int NUM_YEARS = 2;
-    IndicationsPaymentsAt<int>* payments[NUM_YEARS];
-    payments[0] = new IndicationsPaymentsWithPenalty<int>(2.22);
-    payments[1] = new IndicationsPaymentsWithPenalty<int>(5.22);
+    IndicationsPaymentsAt<type_my>* payments[NUM_YEARS];
+    payments[0] = new IndicationsPaymentsWithPenalty<type_my>(2.22,2);
+    payments[1] = new IndicationsPaymentsWithPenalty<type_my>(5.22,1);
     //IndicationsPaymentsWithPenalty payments(12);
     //IndicationsPaymentsAtYear payments2(5);
     
@@ -145,8 +147,8 @@ int main()
         cin >> symbolAverage;
         if (symbolAverage == 'Z' || symbolAverage == 'z')
         {
-            totalAverage += *payments[0];
-            totalAverage += *payments[1];
+         totalAverage += *payments[0];
+         totalAverage += *payments[1];
 
             cout << "Общая сумма средних показаний: " << totalAverage;
         }
